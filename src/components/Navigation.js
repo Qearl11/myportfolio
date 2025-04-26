@@ -8,7 +8,7 @@ const NavContainer = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0.1rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
@@ -63,7 +63,7 @@ const NavLinks = styled.div`
   align-items: center;
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   color: #666;
   text-decoration: none;
   padding: 0.5rem 0;
@@ -71,6 +71,7 @@ const NavLink = styled(Link)`
   font-size: 1rem;
   position: relative;
   transition: color 0.3s ease;
+  cursor: pointer;
   
   &::after {
     content: '';
@@ -103,11 +104,25 @@ const NavLink = styled(Link)`
 const Navigation = () => {
   const location = useLocation();
   
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navHeight = 70;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const navItems = [
-    { id: 'home', label: '首页', path: '/' },
-    { id: 'projects', label: '作品集', path: '/#projects' },
-    { id: 'about', label: '关于我', path: '/#about' },
-    { id: 'contact', label: '联系方式', path: '/#contact' }
+    { id: 'home', label: '首页', onClick: () => scrollToSection('home') },
+    { id: 'projects', label: '作品集', onClick: () => scrollToSection('projects') },
+    { id: 'about', label: '关于我', onClick: () => scrollToSection('about') },
+    { id: 'contact', label: '联系方式', onClick: () => scrollToSection('contact') }
   ];
 
   return (
@@ -121,8 +136,8 @@ const Navigation = () => {
           {navItems.map(item => (
             <NavLink 
               key={item.id}
-              to={item.path}
-              className={location.pathname === item.path ? 'active' : ''}
+              onClick={item.onClick}
+              className={location.hash === `#${item.id}` ? 'active' : ''}
             >
               {item.label}
             </NavLink>
