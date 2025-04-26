@@ -39,10 +39,10 @@ const shimmer = keyframes`
 `;
 
 const Section = styled.section`
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
   overflow: hidden;
-  margin-top: 60px;
+  margin-top: 25px;
 `;
 
 const HeroSection = styled(Section)`
@@ -50,6 +50,7 @@ const HeroSection = styled(Section)`
   min-height: calc(100vh - 60px);
   display: flex;
   align-items: center;
+  padding: 40px 0;
   
   &::before {
     content: '';
@@ -177,7 +178,7 @@ const AnimatedBox = styled(Box)`
 
 const ProjectsSection = styled(Section)`
   background: #fff;
-  position: relative;
+  padding: 40px 0;
   
   &::before {
     content: '';
@@ -192,7 +193,7 @@ const ProjectsSection = styled(Section)`
 
 const AboutSection = styled(Section)`
   background: #fff;
-  position: relative;
+  padding: 40px 0;
   
   &::before {
     content: '';
@@ -207,7 +208,7 @@ const AboutSection = styled(Section)`
 
 const ContactSection = styled(Section)`
   background: linear-gradient(135deg, #f8f5ff 0%, #e9ecef 100%);
-  position: relative;
+  padding: 40px 0;
   
   &::before {
     content: '';
@@ -462,13 +463,13 @@ const Home = () => {
       <HeroSection id="home">
         <StyledContainer>
           <HeroContent>
-            <Box mb={6}>
+            <Box mb={4}>
               <StyledTypography 
                 variant="h2" 
                 gutterBottom 
                 sx={{ 
                   fontWeight: 700,
-                  marginBottom: 3,
+                  marginBottom: 2,
                   fontSize: { xs: '2rem', md: '3rem' }
                 }}
                 delay="0.2s"
@@ -480,7 +481,7 @@ const Home = () => {
                 gutterBottom 
                 sx={{ 
                   color: '#666',
-                  marginBottom: 4,
+                  marginBottom: 2,
                   fontWeight: 500,
                   fontSize: { xs: '1.5rem', md: '2rem' }
                 }}
@@ -510,7 +511,7 @@ const Home = () => {
                   color: '#666',
                   fontSize: '1.1rem',
                   lineHeight: 1.8,
-                  marginBottom: 4,
+                  marginBottom: 2,
                   maxWidth: '600px',
                   margin: '2rem auto'
                 }}
@@ -532,7 +533,7 @@ const Home = () => {
 
       <ProjectsSection id="projects">
         <Container>
-          <Box mb={8}>
+          <Box mb={4}>
             <Typography 
               variant="h3" 
               gutterBottom 
@@ -594,7 +595,7 @@ const Home = () => {
                 gutterBottom
                 sx={{ 
                   fontWeight: 700,
-                  marginBottom: 3
+                  marginBottom: 2
                 }}
               >
                 关于我
@@ -606,13 +607,13 @@ const Home = () => {
 
       <ContactSection id="contact">
         <Container>
-          <Box mb={6} textAlign="center">
+          <Box mb={4} textAlign="center">
             <Typography 
               variant="h3" 
               gutterBottom
               sx={{ 
                 fontWeight: 700,
-                marginBottom: 3,
+                marginBottom: 2,
                 color: '#333'
               }}
             >
