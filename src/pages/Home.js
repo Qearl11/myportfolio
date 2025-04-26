@@ -36,6 +36,15 @@ const shimmer = keyframes`
   }
 `;
 
+const bounce = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+`;
+
 const Section = styled.section`
   padding: 60px 0;
   position: relative;
@@ -74,8 +83,12 @@ const HeroContent = styled(Box)`
 `;
 
 const HighlightText = styled.span`
-  display: inline-block;
+  display: inline-flex;
   font-weight: bold;
+  align-items: flex-end;
+  height: 1.2em;
+  margin: 0 -0.1em;
+  position: relative;
 
   .char {
     display: inline-block;
@@ -83,33 +96,28 @@ const HighlightText = styled.span`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: bottom;
+    position: relative;
+    margin: 0 0.05em;
     
+    &:first-child {
+      margin-left: 0;
+    }
+    
+    &:last-child {
+      margin-right: 0;
+    }
+
     @media (min-width: 769px) {
-      margin: 0 0.05em;
-      
-      &:first-child {
-        margin-left: 0;
-      }
-      
-      &:last-child {
-        margin-right: 0;
-      }
-      
-      &.scale-1 {
-        transform: scale(1.3);
-      }
-      &.scale-2 {
-        transform: scale(1.15);
-      }
-      &.scale-3 {
-        transform: scale(1.05);
-      }
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     @media (max-width: 768px) {
-      animation: ${float} 3s ease-in-out infinite;
+      animation: ${float} 1s ease-in-out infinite;
       animation-delay: calc(var(--char-index, 0) * 0.1s);
+      transform: none !important;
+      margin: 0 0.05em !important;
+      transition: none !important;
     }
   }
 `;
@@ -186,7 +194,7 @@ const ResumeButton = styled(Link)`
   
   svg {
     font-size: 1.2rem;
-    animation: ${css`${float} 2s ease-in-out infinite`};
+    animation: ${css`${bounce} 2s ease-in-out infinite`};
   }
 `;
 
@@ -450,26 +458,55 @@ const Home = () => {
         `<span class="char" style="--char-index: ${index}">${char}</span>`
       ).join('');
 
-      // 只在大屏幕上添加hover效果
       if (window.matchMedia('(min-width: 769px)').matches) {
         const chars = highlightText.querySelectorAll('.char');
-        chars.forEach((char, index) => {
-          char.addEventListener('mouseenter', () => {
-            char.classList.add('scale-1');
-            if (index > 0) chars[index - 1].classList.add('scale-2');
-            if (index < chars.length - 1) chars[index + 1].classList.add('scale-2');
-            if (index > 1) chars[index - 2].classList.add('scale-3');
-            if (index < chars.length - 2) chars[index + 2].classList.add('scale-3');
+        const totalChars = chars.length;
+        
+        const updateScales = (mouseX) => {
+          const rect = highlightText.getBoundingClientRect();
+          const relativeX = mouseX - rect.left;
+          const centerPoint = relativeX / rect.width;
+          
+          chars.forEach((char, index) => {
+            const charCenter = (index + 0.5) / totalChars;
+            const distance = Math.abs(centerPoint - charCenter);
+            
+            if (distance < 0.15) {
+              char.style.transform = 'scale(1.3)';
+              char.style.margin = '0 0.15em';
+            } else if (distance < 0.25) {
+              char.style.transform = 'scale(1.15)';
+              char.style.margin = '0 0.08em';
+            } else if (distance < 0.35) {
+              char.style.transform = 'scale(1.05)';
+              char.style.margin = '0 0.05em';
+            } else {
+              char.style.transform = '';
+              char.style.margin = '';
+            }
           });
+        };
 
-          char.addEventListener('mouseleave', () => {
-            char.classList.remove('scale-1');
-            if (index > 0) chars[index - 1].classList.remove('scale-2');
-            if (index < chars.length - 1) chars[index + 1].classList.remove('scale-2');
-            if (index > 1) chars[index - 2].classList.remove('scale-3');
-            if (index < chars.length - 2) chars[index + 2].classList.remove('scale-3');
+        const handleMouseMove = (e) => {
+          requestAnimationFrame(() => {
+            updateScales(e.clientX);
           });
-        });
+        };
+
+        const handleMouseLeave = () => {
+          chars.forEach(char => {
+            char.style.transform = '';
+            char.style.margin = '';
+          });
+        };
+
+        highlightText.addEventListener('mousemove', handleMouseMove);
+        highlightText.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+          highlightText.removeEventListener('mousemove', handleMouseMove);
+          highlightText.removeEventListener('mouseleave', handleMouseLeave);
+        };
       }
     }
   }, []);
@@ -519,18 +556,18 @@ const Home = () => {
         <StyledContainer>
           <HeroContent>
             <Box mb={4}>
-              <StyledTypography 
+              <Typography 
                 variant="h2" 
-                gutterBottom 
+                gutterBottom
                 sx={{ 
                   fontWeight: 700,
                   marginBottom: 2,
-                  fontSize: { xs: '2rem', md: '3rem' }
+                  color: '#333',
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
                 }}
-                delay="0.2s"
               >
-                你好，我是 <HighlightText className="highlight-name">王雪纯 Rachel</HighlightText>
-              </StyledTypography>
+                你好！我是 <HighlightText className="highlight-name">王雪纯 Rachel</HighlightText>
+              </Typography>
               <IntroText
                 variant="h4" 
                 gutterBottom 

@@ -14,7 +14,7 @@ import Resume from './pages/Resume';
 
 function App() {
   return (
-    <Router basename="/myportfolio">
+    <Router>
       <ThemeProvider theme={theme}>
         <StyledThemeProvider theme={theme}>
           <CssBaseline />

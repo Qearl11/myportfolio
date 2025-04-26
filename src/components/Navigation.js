@@ -181,8 +181,8 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   
   const scrollToSection = (sectionId) => {
-    if (location.pathname !== '/myportfolio/') {
-      window.location.href = '/myportfolio/';
+    if (location.pathname !== '/') {
+      window.location.href = '/';
       localStorage.setItem('scrollTarget', sectionId);
       return;
     }
@@ -202,7 +202,7 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    if (location.pathname === '/myportfolio/') {
+    if (location.pathname === '/') {
       const scrollTarget = localStorage.getItem('scrollTarget');
       if (scrollTarget) {
         localStorage.removeItem('scrollTarget');
@@ -228,10 +228,10 @@ const Navigation = () => {
 
   const navItems = [
     { id: 'home', label: '首页', onClick: () => {
-      if (location.pathname === '/myportfolio/') {
+      if (location.pathname === '/') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        window.location.href = '/myportfolio/';
+        window.location.href = '/';
       }
       setIsOpen(false);
     }},
@@ -243,8 +243,8 @@ const Navigation = () => {
   return (
     <NavContainer>
       <NavContent>
-        <Logo to="/myportfolio/" onClick={() => {
-          if (location.pathname === '/myportfolio/') {
+        <Logo to="/" onClick={() => {
+          if (location.pathname === '/') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
         }}>
@@ -258,7 +258,7 @@ const Navigation = () => {
             <NavLink 
               key={item.id}
               onClick={item.onClick}
-              className={location.pathname === '/myportfolio/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
+              className={location.pathname === '/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
             >
               {item.label}
             </NavLink>
