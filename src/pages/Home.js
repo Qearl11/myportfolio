@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Container, Typography, Box } from '@mui/material';
 import { Email, Phone, Description } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import parkeaseImg from '../assets/parkease.png';
 import userYourVoiceImg from '../assets/useryourvoice.png';
 
@@ -119,7 +120,7 @@ const IntroText = styled(StyledTypography)`
   }
 `;
 
-const ResumeButton = styled.a`
+const ResumeButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -520,7 +521,7 @@ const Home = () => {
                 我负责产品规划、用户研究、原型设计和开发实现，注重数据驱动的决策方法，致力于打造卓越的用户体验。
               </StyledTypography>
               <AnimatedBox mt={4}>
-                <ResumeButton href="/resume" rel="noopener noreferrer">
+                <ResumeButton to="/resume" rel="noopener noreferrer">
                   <Description /> 查看我的简历
                 </ResumeButton>
               </AnimatedBox>
