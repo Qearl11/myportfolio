@@ -107,10 +107,10 @@ const Resume = () => {
               <Phone />
               <Typography>(+1)7348828356 / (+86)18009699186 (EST, 时差-12h)</Typography>
             </ContactInfo>
-            <ContactInfo>
+            {/* <ContactInfo>
               <LinkedIn />
               <Typography>LinkedIn</Typography>
-            </ContactInfo>
+            </ContactInfo> */}
           </Box>
         </Section>
 

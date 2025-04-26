@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const NavContainer = styled.nav`
   position: fixed;
@@ -30,6 +32,7 @@ const Logo = styled(Link)`
   font-weight: bold;
   position: relative;
   padding: 0.2rem 0;
+  z-index: 1001;
   
   .chinese {
     font-family: 'ZCOOL XiaoWei', serif;
@@ -39,6 +42,10 @@ const Logo = styled(Link)`
     font-family: 'Dancing Script', cursive, bold;
     margin-left: 0.5rem;
     font-size: 2.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
   }
   
   &::after {
@@ -61,6 +68,46 @@ const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
+
+  @media (max-width: 768px) {
+    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 80px 2rem;
+    gap: 2rem;
+    z-index: 1000;
+    align-items: flex-end;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 80px;
+      right: 2rem;
+      width: 200px;
+      height: 340px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      z-index: -1;
+    }
+  }
 `;
 
 const NavLink = styled.a`
@@ -73,6 +120,17 @@ const NavLink = styled.a`
   transition: color 0.3s ease;
   cursor: pointer;
   
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 150px;
+    text-align: right;
+    
+    &:hover {
+      color: #a78bfa;
+    }
+  }
+  
   &::after {
     content: '';
     position: absolute;
@@ -82,6 +140,10 @@ const NavLink = styled.a`
     height: 2px;
     background: linear-gradient(90deg, #a78bfa, #ddd6fe);
     transition: width 0.3s ease;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   
   &:hover {
@@ -101,8 +163,27 @@ const NavLink = styled.a`
   }
 `;
 
+const MenuButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0.5rem;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+  
+  &:hover {
+    color: #a78bfa;
+  }
+`;
+
 const Navigation = () => {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
   
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -115,6 +196,7 @@ const Navigation = () => {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      setIsOpen(false);
     }
   };
 
@@ -132,7 +214,10 @@ const Navigation = () => {
           <span className="english">Rachel</span>
           <span className="english"> Wang</span>
         </Logo>
-        <NavLinks>
+        <MenuButton onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <CloseIcon /> : <MenuIcon />}
+        </MenuButton>
+        <NavLinks isOpen={isOpen}>
           {navItems.map(item => (
             <NavLink 
               key={item.id}
