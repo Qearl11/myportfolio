@@ -208,7 +208,7 @@ const AboutSection = styled(Section)`
 
 const ContactSection = styled(Section)`
   background: linear-gradient(135deg, #f8f5ff 0%, #e9ecef 100%);
-  padding: 20px 0;
+  padding: 20px 0 30px 0;
   
   &::before {
     content: '';
@@ -378,6 +378,27 @@ const SocialLink = styled.a`
   svg {
     font-size: 1.2rem;
     color: #666;
+  }
+`;
+
+const Footer = styled.footer`
+  background: linear-gradient(135deg, #f8f5ff 0%, #fff 100%);
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(167, 139, 250, 0.1);
+`;
+
+const FooterContent = styled.div`
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  
+  a {
+    color: #a78bfa;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -631,13 +652,18 @@ const Home = () => {
               <SocialLink href="tel:18009699186">
                 <Phone /> +86-180-0969-9186
               </SocialLink>
-              {/* <SocialLink href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Description /> 简历
-              </SocialLink> */}
             </SocialLinks>
           </Box>
         </Container>
       </ContactSection>
+      
+      <Footer>
+        <Container>
+          <FooterContent>
+            <p> {new Date().getFullYear()} Xuechun Wang</p>
+          </FooterContent>
+        </Container>
+      </Footer>
     </main>
   );
 };
