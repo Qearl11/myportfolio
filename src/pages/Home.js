@@ -5,16 +5,14 @@ import { Email, Phone, Description } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import parkeaseImg from '../assets/parkease.png';
 import userYourVoiceImg from '../assets/useryourvoice.png';
+import Footer from '../components/Footer'; // 导入页脚组件
 
 const float = keyframes`
-  0% {
-    transform: translateY(0px);
+  0%, 100% {
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
+    transform: translateY(-5px);
   }
 `;
 
@@ -75,23 +73,44 @@ const HeroContent = styled(Box)`
   text-align: center;
 `;
 
-const Highlight = styled.span`
-  color: #a78bfa;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  position: relative;
+const HighlightText = styled.span`
   display: inline-block;
-  animation: ${css`${float} 3s ease-in-out infinite`};
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: rgba(167,139,250,0.15);
-    z-index: -1;
-    border-radius: 4px;
+  font-weight: bold;
+
+  .char {
+    display: inline-block;
+    background: linear-gradient(120deg, #a78bfa 0%, #ddd6fe 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    @media (min-width: 769px) {
+      margin: 0 0.05em;
+      
+      &:first-child {
+        margin-left: 0;
+      }
+      
+      &:last-child {
+        margin-right: 0;
+      }
+      
+      &.scale-1 {
+        transform: scale(1.3);
+      }
+      &.scale-2 {
+        transform: scale(1.15);
+      }
+      &.scale-3 {
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 768px) {
+      animation: ${float} 3s ease-in-out infinite;
+      animation-delay: calc(var(--char-index, 0) * 0.1s);
+    }
   }
 `;
 
@@ -207,7 +226,8 @@ const AboutSection = styled(Section)`
 `;
 
 const ContactSection = styled(Section)`
-  background: linear-gradient(135deg, #f8f5ff 0%, #e9ecef 100%);
+  // background: linear-gradient(135deg, #f8f5ff 0%, #e9ecef 100%);
+  // background: #f8f5ff;
   padding: 20px 0;
   
   &::before {
@@ -217,7 +237,7 @@ const ContactSection = styled(Section)`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0), transparent);
   }
 `;
 
@@ -422,6 +442,38 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const highlightText = document.querySelector('.highlight-name');
+    if (highlightText) {
+      const text = highlightText.textContent;
+      highlightText.innerHTML = text.split('').map((char, index) => 
+        `<span class="char" style="--char-index: ${index}">${char}</span>`
+      ).join('');
+
+      // 只在大屏幕上添加hover效果
+      if (window.matchMedia('(min-width: 769px)').matches) {
+        const chars = highlightText.querySelectorAll('.char');
+        chars.forEach((char, index) => {
+          char.addEventListener('mouseenter', () => {
+            char.classList.add('scale-1');
+            if (index > 0) chars[index - 1].classList.add('scale-2');
+            if (index < chars.length - 1) chars[index + 1].classList.add('scale-2');
+            if (index > 1) chars[index - 2].classList.add('scale-3');
+            if (index < chars.length - 2) chars[index + 2].classList.add('scale-3');
+          });
+
+          char.addEventListener('mouseleave', () => {
+            char.classList.remove('scale-1');
+            if (index > 0) chars[index - 1].classList.remove('scale-2');
+            if (index < chars.length - 1) chars[index + 1].classList.remove('scale-2');
+            if (index > 1) chars[index - 2].classList.remove('scale-3');
+            if (index < chars.length - 2) chars[index + 2].classList.remove('scale-3');
+          });
+        });
+      }
+    }
+  }, []);
+
   const projects = [
     {
       title: "Use Your Voice诊断故事分享平台",
@@ -477,7 +529,7 @@ const Home = () => {
                 }}
                 delay="0.2s"
               >
-                你好，我是 <Highlight>王雪纯(Rachel)</Highlight>
+                你好，我是 <HighlightText className="highlight-name">王雪纯 Rachel</HighlightText>
               </StyledTypography>
               <IntroText
                 variant="h4" 
@@ -638,6 +690,7 @@ const Home = () => {
           </Box>
         </Container>
       </ContactSection>
+      <Footer />
     </main>
   );
 };
