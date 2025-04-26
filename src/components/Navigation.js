@@ -63,7 +63,7 @@ const NavLinks = styled.div`
   align-items: center;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   color: #666;
   text-decoration: none;
   padding: 0.5rem 0;
@@ -103,66 +103,26 @@ const NavLink = styled.a`
 const Navigation = () => {
   const location = useLocation();
   
-  const scrollToSection = (sectionId, e) => {
-    e.preventDefault();
-    
-    if (location.pathname !== '/') {
-      window.location.href = '/';
-      window.onload = () => {
-        setTimeout(() => {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const navHeight = 70;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }, 100);
-      };
-      return;
-    }
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const navHeight = 70;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   const navItems = [
-    { id: 'projects', label: '作品集' },
-    { id: 'about', label: '关于我' },
-    { id: 'contact', label: '联系方式' }
+    { id: 'home', label: '首页', path: '/' },
+    { id: 'projects', label: '作品集', path: '/#projects' },
+    { id: 'about', label: '关于我', path: '/#about' },
+    { id: 'contact', label: '联系方式', path: '/#contact' }
   ];
 
   return (
     <NavContainer>
       <NavContent>
         <Logo to="/">
-          {/* <span className="chinese">王雪纯</span> */}
           <span className="english">Rachel</span>
           <span className="english"> Wang</span>
         </Logo>
         <NavLinks>
-          <NavLink as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
-            首页
-          </NavLink>
           {navItems.map(item => (
             <NavLink 
               key={item.id}
-              onClick={(e) => scrollToSection(item.id, e)}
-              href={`#${item.id}`}
-              className={location.hash === `#${item.id}` ? 'active' : ''}
+              to={item.path}
+              className={location.pathname === item.path ? 'active' : ''}
             >
               {item.label}
             </NavLink>
