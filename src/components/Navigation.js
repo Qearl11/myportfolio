@@ -182,7 +182,7 @@ const Navigation = () => {
   
   const scrollToSection = (sectionId) => {
     if (location.pathname !== '/') {
-      window.location.href = '/';
+      window.location.href = '/#/';
       localStorage.setItem('scrollTarget', sectionId);
       return;
     }
