@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const NavContainer = styled.nav`
   position: fixed;
@@ -96,7 +97,7 @@ const NavLinks = styled.div`
       top: 1rem;
       right: 2rem;
       width: 120px;
-      height: 250px;
+      height: 190px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -158,6 +159,25 @@ const NavLink = styled.a`
   }
 `;
 
+const BackButton = styled(Link)`
+  color: #666;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: #a78bfa;
+  }
+
+  svg {
+    font-size: 1.2rem;
+  }
+`;
+
 const MenuButton = styled.button`
   display: none;
   background: none;
@@ -179,6 +199,7 @@ const MenuButton = styled.button`
 const Navigation = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const isResumePage = location.pathname === '/resume';
   
   const scrollToSection = (sectionId) => {
     if (location.pathname !== '/') {
@@ -227,14 +248,6 @@ const Navigation = () => {
   }, [location.pathname]);
 
   const navItems = [
-    { id: 'home', label: '首页', onClick: () => {
-      if (location.pathname === '/') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.location.href = '/';
-      }
-      setIsOpen(false);
-    }},
     { id: 'projects', label: '作品集', onClick: () => scrollToSection('projects') },
     { id: 'about', label: '关于我', onClick: () => scrollToSection('about') },
     { id: 'contact', label: '联系方式', onClick: () => scrollToSection('contact') }
@@ -250,20 +263,29 @@ const Navigation = () => {
         }}>
           <span className="english">Rachel Wang</span>
         </Logo>
-        <MenuButton onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <CloseIcon /> : <MenuIcon />}
-        </MenuButton>
-        <NavLinks isOpen={isOpen}>
-          {navItems.map(item => (
-            <NavLink 
-              key={item.id}
-              onClick={item.onClick}
-              className={location.pathname === '/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </NavLinks>
+        {!isResumePage ? (
+          <>
+            <MenuButton onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <CloseIcon /> : <MenuIcon />}
+            </MenuButton>
+            <NavLinks isOpen={isOpen}>
+              {navItems.map(item => (
+                <NavLink 
+                  key={item.id}
+                  onClick={item.onClick}
+                  className={location.pathname === '/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </NavLinks>
+          </>
+        ) : (
+          <BackButton to="/">
+            <ArrowBackIcon />
+            首页
+          </BackButton>
+        )}
       </NavContent>
     </NavContainer>
   );

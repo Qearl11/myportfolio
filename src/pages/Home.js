@@ -421,8 +421,6 @@ const getTagColor = (tag) => {
     '3D建模': { bg: '#ebfbee', text: '#37b24d' },
     '数据分析': { bg: '#e7f5ff', text: '#1c7ed6' },
     '竞品分析': { bg: '#fff4e6', text: '#fd7e14' },
-    '系统设计': { bg: '#f8f9fa', text: '#495057' },
-    'API集成': { bg: '#f4f4f4', text: '#666' }
   };
   return colors[tag] || { bg: '#f0f7ff', text: '#007AFF' };
 };
