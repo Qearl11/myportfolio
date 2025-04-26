@@ -61,8 +61,6 @@ const Logo = styled(Link)`
 const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
-  align-items: center;
-  height: 100%;
 
   @media (max-width: 768px) {
     display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
@@ -248,9 +246,17 @@ const Navigation = () => {
   }, [location.pathname]);
 
   const navItems = [
+    { id: 'chat', label: '与我对话', onClick: () => {
+      window.location.href = '/myportfolio/#/chat';
+      setIsOpen(false);
+    }},
     { id: 'projects', label: '作品集', onClick: () => scrollToSection('projects') },
     { id: 'about', label: '关于我', onClick: () => scrollToSection('about') },
-    { id: 'contact', label: '联系方式', onClick: () => scrollToSection('contact') }
+    { id: 'contact', label: '联系方式', onClick: () => scrollToSection('contact') },
+    // { id: 'chat', label: '与我对话', onClick: () => {
+    //   window.location.href = '/myportfolio/#/chat';
+    //   setIsOpen(false);
+    // }}
   ];
 
   return (
