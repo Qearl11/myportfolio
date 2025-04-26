@@ -41,11 +41,12 @@ const Section = styled.section`
   padding: 100px 0;
   position: relative;
   overflow: hidden;
+  margin-top: 60px;
 `;
 
 const HeroSection = styled(Section)`
   background: linear-gradient(135deg, #f8f5ff 0%, #fff 100%);
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   display: flex;
   align-items: center;
   
@@ -456,7 +457,7 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <main>
       <HeroSection id="home">
         <StyledContainer>
           <HeroContent>
@@ -632,7 +633,7 @@ const Home = () => {
           </Box>
         </Container>
       </ContactSection>
-    </>
+    </main>
   );
 };
 
