@@ -95,7 +95,7 @@ const NavLinks = styled.div`
       top: 1rem;
       right: 2rem;
       width: 120px;
-      height: 190px;
+      height: 250px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
