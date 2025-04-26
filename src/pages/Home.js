@@ -42,7 +42,7 @@ const Section = styled.section`
   padding: 60px 0;
   position: relative;
   overflow: hidden;
-  margin-top: 25px;
+  margin-top: 10px;
 `;
 
 const HeroSection = styled(Section)`
@@ -208,7 +208,7 @@ const AboutSection = styled(Section)`
 
 const ContactSection = styled(Section)`
   background: linear-gradient(135deg, #f8f5ff 0%, #e9ecef 100%);
-  padding: 40px 0;
+  padding: 20px 0;
   
   &::before {
     content: '';
@@ -341,7 +341,7 @@ const TagContainer = styled(Box)`
 
 const Tag = styled.span`
   display: inline-block;
-  padding: 6px 14px;
+  padding: 5px 14px;
   background: ${props => props.color || '#f0f7ff'};
   color: ${props => props.textColor || '#007AFF'};
   border-radius: 20px;
@@ -356,25 +356,28 @@ const Tag = styled.span`
 
 const SocialLinks = styled.div`
   display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
 `;
 
 const SocialLink = styled.a`
-  color: #666;
-  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 5px 16px;
   border-radius: 8px;
   background: rgba(0,0,0,0.03);
+  width: fit-content;
   
   &:hover {
-    color: #007AFF;
-    background: #f0f7ff;
-    transform: translateY(-2px);
+    background: rgba(0,0,0,0.06);
+  }
+  
+  svg {
+    font-size: 1.2rem;
+    color: #666;
   }
 `;
 
@@ -445,10 +448,10 @@ const Home = () => {
       tags: ["3D建模", "用户研究", "数据分析"]
     },
     {
-      title: "RPA产品功能设计",
-      description: "在科大讯飞实习期间参与RPA产品核心功能设计，包括原子能力模块、CV拾取功能，通过竞品分析和用户反馈优化产品体验。",
+      title: "运动todo list应用",
+      description: "基于用户调研设计的运动todo list应用。负责产品功能设计，使用React构建核心功能",
       image: "https://via.placeholder.com/600x400",
-      tags: ["产品设计", "竞品分析", "用户体验"]
+      tags: ["产品设计", "原型开发", "用户体验"]
     },
     {
       title: "自动旅行助手应用",
@@ -607,7 +610,7 @@ const Home = () => {
 
       <ContactSection id="contact">
         <Container>
-          <Box mb={4} textAlign="center">
+          <Box mb={4}>
             <Typography 
               variant="h3" 
               gutterBottom
@@ -620,7 +623,7 @@ const Home = () => {
               联系方式
             </Typography>
           </Box>
-          <Box display="flex" justifyContent="center">
+          <Box>
             <SocialLinks>
               <SocialLink href="mailto:xuechun@umich.edu">
                 <Email /> xuechun@umich.edu
