@@ -41,7 +41,7 @@ const bounce = keyframes`
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 `;
 
@@ -195,6 +195,8 @@ const ResumeButton = styled(Link)`
   svg {
     font-size: 1.2rem;
     animation: ${css`${bounce} 2s ease-in-out infinite`};
+    position: relative;
+    top: 2px;
   }
 `;
 
