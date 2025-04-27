@@ -257,7 +257,7 @@ const ContactSection = styled(Section)`
   }
 `;
 
-const ProjectCard = styled.div`
+const ProjectCard = styled(Link)`
   background: white;
   border-radius: 16px;
   overflow: hidden;
@@ -268,6 +268,8 @@ const ProjectCard = styled.div`
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   position: relative;
   min-width: 300px;
+  text-decoration: none;
+  color: inherit;
   
   &::before {
     content: '';
@@ -432,8 +434,8 @@ const getTagColor = (tag) => {
     '原型设计': { bg: '#f8f0fc', text: '#ae3ec9' },
     '用户测试': { bg: '#e3fafc', text: '#15aabf' },
     '产品设计': { bg: '#fff9db', text: '#fab005' },
-    '3D建模': { bg: '#ebfbee', text: '#37b24d' },
-    '数据分析': { bg: '#e7f5ff', text: '#1c7ed6' },
+    '前端开发': { bg: '#ebfbee', text: '#37b24d' },
+    '网页设计': { bg: '#e7f5ff', text: '#1c7ed6' },
     '竞品分析': { bg: '#fff4e6', text: '#fd7e14' },
   };
   return colors[tag] || { bg: '#f0f7ff', text: '#007AFF' };
@@ -528,36 +530,42 @@ const Home = () => {
       title: "Use Your Voice诊断故事分享平台",
       description: "为密歇根医学急诊科设计的患者故事分享平台。作为7人团队负责人，主导产品规划、用户研究和功能开发，使用React和Django构建核心功能。",
       image: userYourVoiceImg,
+      link: "/project/useyourvoice",
       tags: ["产品管理", "UX设计", "全栈开发"]
     },
     {
       title: "ParkEase停车应用设计",
       description: "基于用户调研设计的实时停车应用。负责线框图和交互原型设计，使用Adobe XD构建UI界面，通过迭代测试优化用户体验。",
       image: parkeaseImg,
+      link: "/project/park-ease",
       tags: ["UX设计", "原型设计", "用户测试"]
     },
     {
       title: "StoryScape儿童教育应用",
       description: "针对0-10岁儿童家长开发的互动视频APP。通过深入的用户访谈和市场调研，设计个性化故事定制机制，使用Figma打造产品原型。",
       image: "https://via.placeholder.com/600x400",
+      link: "/project/story-scape",
       tags: ["用户研究", "产品设计", "原型开发"]
     },
     {
-      title: "有色孤儿院的3D重建项目",
+      title: "网页设计开发",
       description: "研究有色人种孤儿院的历史，使用Blender创建三维模型，并使用Unreal 5重建历史场景。负责用户体验评估和数据收集。",
       image: "https://via.placeholder.com/600x400",
-      tags: ["3D建模", "用户研究", "数据分析"]
+      link: "/project/web-design",
+      tags: ["前端开发", "用户研究", "网页设计"]
     },
     {
       title: "运动todo list应用",
       description: "基于用户调研设计的运动todo list应用。负责产品功能设计，使用React构建核心功能",
       image: "https://via.placeholder.com/600x400",
-      tags: ["产品设计", "原型开发", "用户体验"]
+      link: "/project/todo-list",
+      tags: ["产品设计", "前端开发", "用户体验"]
     },
     {
       title: "自动旅行助手应用",
       description: "设计个性化自驾游路线推荐系统，整合Google Maps API实现路线可视化，基于用户评分系统优化推荐算法。",
       image: "https://via.placeholder.com/600x400",
+      link: "/project/travel-assistant",
       tags: ["产品设计", "用户研究", "全栈开发"]
     }
   ];
@@ -657,11 +665,16 @@ const Home = () => {
           </Box>
           <ProjectsGrid>
             {projects.map((project, index) => (
-              <ProjectCard className="project-card" key={index}>
-                <ProjectImage src={project.image} alt={project.title} />
+              <ProjectCard 
+                key={index} 
+                as={Link}
+                to={project.link}
+                style={{ textDecoration: 'none' }}
+              >
+                <ProjectImage src={project.image} />
                 <ProjectContent>
                   <div>
-                    <ProjectTitle variant="h5">
+                    <ProjectTitle variant="h3">
                       {project.title}
                     </ProjectTitle>
                     <ProjectDescription>
@@ -669,24 +682,15 @@ const Home = () => {
                     </ProjectDescription>
                   </div>
                   <TagContainer>
-                    {project.tags.map((tag, i) => {
-                      const colors = getTagColor(tag);
-                      return (
-                        <Tag 
-                          key={i} 
-                          data-tag={tag}
-                          color={colors.bg}
-                          textColor={colors.text}
-                          style={{
-                            opacity: animatedTags.some(t => t.dataset.tag === tag) ? 1 : 0,
-                            transform: animatedTags.some(t => t.dataset.tag === tag) ? 'translateY(0)' : 'translateY(10px)',
-                            transition: `all 0.3s ease ${i * 0.1}s`
-                          }}
-                        >
-                          {tag}
-                        </Tag>
-                      );
-                    })}
+                    {project.tags.map((tag, i) => (
+                      <Tag
+                        key={i}
+                        color={getTagColor(tag).bg}
+                        textColor={getTagColor(tag).text}
+                      >
+                        {tag}
+                      </Tag>
+                    ))}
                   </TagContainer>
                 </ProjectContent>
               </ProjectCard>
