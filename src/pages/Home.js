@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { Container, Typography, Box } from '@mui/material';
-import { Email, Phone, Description } from '@mui/icons-material';
+import { Email, Phone, Description, Chat } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import parkeaseImg from '../assets/parkease.png';
 import userYourVoiceImg from '../assets/useryourvoice.png';
@@ -92,7 +92,7 @@ const HighlightText = styled.span`
 
   .char {
     display: inline-block;
-    background: linear-gradient(120deg, #a78bfa 0%, #ddd6fe 100%);
+    background: linear-gradient(120deg, #9f75fa 0%, #c4b5fd 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -152,7 +152,7 @@ const ResumeButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(45deg, #a78bfa, #ddd6fe);
+  background: linear-gradient(45deg, #9f75fa, #c4b5fd);
   color: white;
   padding: 12px 24px;
   border-radius: 50px;
@@ -196,6 +196,12 @@ const ResumeButton = styled(Link)`
     font-size: 1.2rem;
     animation: ${css`${bounce} 2s ease-in-out infinite`};
   }
+`;
+
+const ButtonContainer = styled(Box)`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
 `;
 
 const AnimatedBox = styled(Box)`
@@ -259,6 +265,7 @@ const ProjectCard = styled.div`
   flex-direction: column;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   position: relative;
+  min-width: 300px;
   
   &::before {
     content: '';
@@ -284,19 +291,20 @@ const ProjectCard = styled.div`
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 40px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  overflow-x: auto;
   
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(350px, 1fr));
   }
   
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(300px, 1fr);
   }
 `;
 
@@ -320,11 +328,12 @@ const ProjectImage = styled.div`
 `;
 
 const ProjectContent = styled.div`
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-width: 0;
 `;
 
 const ProjectTitle = styled(Typography)`
@@ -360,11 +369,13 @@ const ProjectDescription = styled(Typography)`
 
 const TagContainer = styled(Box)`
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
   margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid rgba(0,0,0,0.06);
+  justify-content: space-around;
+  min-width: 0;
 `;
 
 const Tag = styled.span`
@@ -373,9 +384,10 @@ const Tag = styled.span`
   background: ${props => props.color || '#f0f7ff'};
   color: ${props => props.textColor || '#007AFF'};
   border-radius: 20px;
-  font-size: 0.875rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.875rem);
   font-weight: 500;
   transition: all 0.2s ease;
+  white-space: nowrap;
   
   &:hover {
     transform: scale(1.05);
@@ -612,9 +624,14 @@ const Home = () => {
                 我负责产品规划、用户研究、原型设计和开发实现，注重数据驱动的决策方法，致力于打造卓越的用户体验。
               </StyledTypography>
               <AnimatedBox mt={4}>
-                <ResumeButton to="/resume" rel="noopener noreferrer">
-                  <Description /> 查看我的简历
-                </ResumeButton>
+                <ButtonContainer>
+                  <ResumeButton to="/resume" rel="noopener noreferrer">
+                    <Description /> 查看我的简历
+                  </ResumeButton>
+                  <ResumeButton to="/chat" rel="noopener noreferrer">
+                    <Chat /> 与我对话
+                  </ResumeButton>
+                </ButtonContainer>
               </AnimatedBox>
             </Box>
           </HeroContent>

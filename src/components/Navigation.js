@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import HomeIcon from '@mui/icons-material/Home';
 
 const NavContainer = styled.nav`
   position: fixed;
@@ -95,7 +96,7 @@ const NavLinks = styled.div`
       top: 1rem;
       right: 2rem;
       width: 120px;
-      height: 250px;
+      height: 200px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -149,10 +150,12 @@ const NavLink = styled.a`
   }
   
   &.active {
-    color: #a78bfa;
-    
-    &::after {
-      width: 100%;
+    &:hover {
+      color: #a78bfa;
+      
+      &::after {
+        width: 100%;
+      }
     }
   }
 `;
@@ -195,102 +198,86 @@ const MenuButton = styled.button`
 `;
 
 const Navigation = () => {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const isResumePage = location.pathname === '/resume';
-  
+  const location = useLocation();
+  const isResumePage = location.pathname === '/resume' || location.pathname === '/chat';
+
   const scrollToSection = (sectionId) => {
     if (location.pathname !== '/') {
       window.location.href = '/#/';
       localStorage.setItem('scrollTarget', sectionId);
-      return;
-    }
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const navHeight = 70;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsOpen(false);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const navHeight = 80; // 导航栏高度加一些额外空间
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - navHeight,
+          behavior: 'smooth'
+        });
+        localStorage.setItem('scrollTarget', sectionId);
+        setIsOpen(false);
+      }
     }
   };
 
   useEffect(() => {
-    if (location.pathname === '/') {
-      const scrollTarget = localStorage.getItem('scrollTarget');
-      if (scrollTarget) {
-        localStorage.removeItem('scrollTarget');
-        setTimeout(() => {
-          const element = document.getElementById(scrollTarget);
-          if (element) {
-            const navHeight = 70;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }, 100);
+    if (location.pathname === '/' && localStorage.getItem('scrollTarget')) {
+      const sectionId = localStorage.getItem('scrollTarget');
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const navHeight = 80; // 导航栏高度加一些额外空间
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - navHeight,
+          behavior: 'smooth'
+        });
       }
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
-
   const navItems = [
-    { id: 'chat', label: '与我对话', onClick: () => {
-      window.location.href = '/myportfolio/#/chat';
-      setIsOpen(false);
-    }},
-    { id: 'projects', label: '作品集', onClick: () => scrollToSection('projects') },
+    { id: 'projects', label: '项目', onClick: () => scrollToSection('projects') },
     { id: 'about', label: '关于我', onClick: () => scrollToSection('about') },
     { id: 'contact', label: '联系方式', onClick: () => scrollToSection('contact') },
-    // { id: 'chat', label: '与我对话', onClick: () => {
-    //   window.location.href = '/myportfolio/#/chat';
-    //   setIsOpen(false);
-    // }}
   ];
+
+  const handleHomeClick = () => {
+    localStorage.removeItem('scrollTarget');
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <NavContainer>
       <NavContent>
-        <Logo to="/" onClick={() => {
-          if (location.pathname === '/') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }}>
+        <Logo to="/" onClick={handleHomeClick}>
           <span className="english">Rachel Wang</span>
         </Logo>
-        {!isResumePage ? (
-          <>
-            <MenuButton onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <CloseIcon /> : <MenuIcon />}
-            </MenuButton>
-            <NavLinks isOpen={isOpen}>
-              {navItems.map(item => (
-                <NavLink 
-                  key={item.id}
-                  onClick={item.onClick}
-                  className={location.pathname === '/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </NavLinks>
-          </>
-        ) : (
-          <BackButton to="/">
+
+        {!isResumePage && (
+          <MenuButton onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <CloseIcon /> : <MenuIcon />}
+          </MenuButton>
+        )}
+        {isResumePage ? (
+          <BackButton to="/" onClick={() => localStorage.removeItem('scrollTarget')}>
             <ArrowBackIcon />
             首页
           </BackButton>
+        ) : (
+          <NavLinks isOpen={isOpen}>
+            {navItems.map(item => (
+              <NavLink 
+                key={item.id}
+                onClick={item.onClick}
+                className={location.pathname === '/' && localStorage.getItem('scrollTarget') === item.id ? 'active' : ''}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </NavLinks>
         )}
       </NavContent>
     </NavContainer>
