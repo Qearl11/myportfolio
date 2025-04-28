@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品详情</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#F97A28',
+secondary: '#FFE4D6'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-white">
+<nav class="fixed top-0 w-full bg-white shadow-sm z-50 h-12 flex items-center justify-between px-4">
+<div class="flex items-center">
+<i class="fas fa-arrow-left text-gray-600" onclick="window.close()"></i>
+</div>
+<div class="text-center font-medium">商品详情</div>
+<div class="w-6"></div>
+</nav>
+<main class="pt-14 pb-16">
+<div class="px-4 mb-6">
+<div class="relative w-full h-48 rounded-lg overflow-hidden mb-4">
+<img src="https://ai-public.mastergo.com/ai/img_res/a798101d83572487496077c18ea98ba1.jpg" class="w-full h-full object-cover" alt="家具展示">
+</div>
+<div class="flex items-center justify-between mb-2">
+<h1 class="text-lg font-medium">北欧简约双人沙发</h1>
+<span class="text-primary text-xl font-medium">¥ 1,299</span>
+</div>
+<p class="text-gray-500 text-sm">规格：180cm × 95cm × 85cm</p>
+</div>
+<div class="px-4 mb-6">
+<div class="flex space-x-4 mb-6">
+<button class="flex-1 h-12 bg-primary text-white !rounded-button flex items-center justify-center" onclick="toggleARPreview()">
+<i class="fas fa-camera-retro mr-2"></i>
+AR 实景预览
+</button>
+<button class="flex-1 h-12 border border-primary text-primary !rounded-button flex items-center justify-center" onclick="toggleSizeDetails()">
+<i class="fas fa-ruler-combined mr-2"></i>
+查看尺寸
+</button>
+</div>
+<div class="bg-gray-50 rounded-lg p-4 mb-6 hidden" id="sizeDetails">
+<h2 class="font-medium mb-3">尺寸详情</h2>
+<div class="flex">
+<div class="w-full relative">
+<img src="https://ai-public.mastergo.com/ai/img_res/219e8a4ebbc7d0bf45ab534412d50fba.jpg" alt="沙发尺寸图" class="w-full h-[150px] object-contain"/>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h2 class="font-medium mb-3">买家实景图</h2>
+<div class="grid grid-cols-3 gap-2">
+<img src="https://ai-public.mastergo.com/ai/img_res/bba0e357f39f08df812a6a1e4357ddb6.jpg" class="w-full h-28 object-cover rounded-lg" alt="用户实景1">
+<img src="https://ai-public.mastergo.com/ai/img_res/fe00d9c225a2487112ae3b20c459fa31.jpg" class="w-full h-28 object-cover rounded-lg" alt="用户实景2">
+<img src="https://ai-public.mastergo.com/ai/img_res/aef425da660c8b2fa2b6732001c0f8a6.jpg" class="w-full h-28 object-cover rounded-lg" alt="用户实景3">
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg p-4">
+<h2 class="font-medium mb-3">尺寸准确度反馈</h2>
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm text-gray-500">买家反馈准确率</span>
+<span class="text-primary font-medium">98%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 98%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-2">基于近30天1,286位买家反馈</p>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-100 px-4 py-2">
+<button class="w-full h-12 bg-primary text-white !rounded-button flex items-center justify-center">
+立即购买
+</button>
+</div>
+<script>
+function toggleSizeDetails() {
+const details = document.getElementById('sizeDetails');
+if (details.classList.contains('hidden')) {
+details.classList.remove('hidden');
+} else {
+details.classList.add('hidden');
+}
+}
+function toggleARPreview() {
+const main = document.querySelector('main');
+const arPreview = document.createElement('div');
+arPreview.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center';
+arPreview.innerHTML = `
+<div class="bg-white w-full mx-4 rounded-lg overflow-hidden">
+<div class="relative">
+<img src="https://ai-public.mastergo.com/ai/img_res/510275e698a366c94ead435dbe0a46af.jpg" class="w-full h-[500px] object-cover" alt="AR预览">
+<button onclick="this.parentElement.parentElement.parentElement.remove()" class="absolute top-4 right-4 w-8 h-8 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white">
+<i class="fas fa-times"></i>
+</button>
+<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+<p class="text-white text-sm">请移动手机，选择合适位置进行预览</p>
+</div>
+</div>
+</div>
+`;
+main.appendChild(arPreview);
+}
+</script>
+</body>
+</html>
