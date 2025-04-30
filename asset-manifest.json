@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.02b5475c.css",
-    "main.js": "/static/js/main.06eeb14d.js",
-    "static/js/453.1407b060.chunk.js": "/static/js/453.1407b060.chunk.js",
-    "static/media/parkeasedemo.mp4": "/static/media/parkeasedemo.d1d4399a7b1f1b4c7b65.mp4",
-    "static/media/umsi.png": "/static/media/umsi.61bd04ed23c4a30e099a.png",
-    "static/media/temu.png": "/static/media/temu.bfb5a8092e81dcf15d71.png",
-    "static/media/parkease.png": "/static/media/parkease.c03d632ececc7642f6b3.png",
-    "static/media/useryourvoice.png": "/static/media/useryourvoice.b9cbe626df5d120b18e0.png",
-    "static/media/velocity.png": "/static/media/velocity.b75310d0b0dd6702670f.png",
-    "static/media/method.png": "/static/media/method.fb69df7fbfd71664119c.png",
-    "static/media/temulogo.png": "/static/media/temulogo.b72ceef65d41603d0bc2.png",
-    "static/media/parkeaselogo.png": "/static/media/parkeaselogo.444edbb536c8ebba93fd.png",
-    "index.html": "/index.html",
-    "main.02b5475c.css.map": "/static/css/main.02b5475c.css.map",
-    "main.06eeb14d.js.map": "/static/js/main.06eeb14d.js.map",
-    "453.1407b060.chunk.js.map": "/static/js/453.1407b060.chunk.js.map"
+    "main.css": "/myportfolio/static/css/main.02b5475c.css",
+    "main.js": "/myportfolio/static/js/main.7860c334.js",
+    "static/js/453.1407b060.chunk.js": "/myportfolio/static/js/453.1407b060.chunk.js",
+    "static/media/parkeasedemo.mp4": "/myportfolio/static/media/parkeasedemo.d1d4399a7b1f1b4c7b65.mp4",
+    "static/media/umsi.png": "/myportfolio/static/media/umsi.61bd04ed23c4a30e099a.png",
+    "static/media/temu.png": "/myportfolio/static/media/temu.bfb5a8092e81dcf15d71.png",
+    "static/media/parkease.png": "/myportfolio/static/media/parkease.c03d632ececc7642f6b3.png",
+    "static/media/useryourvoice.png": "/myportfolio/static/media/useryourvoice.b9cbe626df5d120b18e0.png",
+    "static/media/velocity.png": "/myportfolio/static/media/velocity.b75310d0b0dd6702670f.png",
+    "static/media/method.png": "/myportfolio/static/media/method.fb69df7fbfd71664119c.png",
+    "static/media/temulogo.png": "/myportfolio/static/media/temulogo.b72ceef65d41603d0bc2.png",
+    "static/media/parkeaselogo.png": "/myportfolio/static/media/parkeaselogo.444edbb536c8ebba93fd.png",
+    "index.html": "/myportfolio/index.html",
+    "main.02b5475c.css.map": "/myportfolio/static/css/main.02b5475c.css.map",
+    "main.7860c334.js.map": "/myportfolio/static/js/main.7860c334.js.map",
+    "453.1407b060.chunk.js.map": "/myportfolio/static/js/453.1407b060.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.02b5475c.css",
-    "static/js/main.06eeb14d.js"
+    "static/js/main.7860c334.js"
   ]
 }
