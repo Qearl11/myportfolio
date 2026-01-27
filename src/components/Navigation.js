@@ -13,9 +13,9 @@ const NavContainer = styled.nav`
   right: 0;
   z-index: 1000;
   padding: 0.5rem 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: #FDF6ED;
   backdrop-filter: blur(8px);
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 20px rgba(158, 137, 160, 0.05);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ const NavContent = styled.div`
 `;
 
 const Logo = styled(Link)`
-  color: #333;
+  color: #58527C;
   text-decoration: none;
   font-size: 1.3rem;
   font-weight: bold;
@@ -72,7 +72,7 @@ const NavLinks = styled.div`
     right: 0;
     bottom: 0;
     height: auto;
-    background: rgba(255, 255, 255, 0.98);
+    background: #FDF6ED;
     backdrop-filter: blur(10px);
     padding: 1rem 2rem;
     gap: 0;
@@ -82,11 +82,12 @@ const NavLinks = styled.div`
     &::before {
       content: '';
       position: absolute;
+      height: 0;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(158, 137, 160, 0.1) 0%, rgba(253, 246, 237, 0.05) 100%);
       z-index: -1;
     }
 
@@ -97,7 +98,7 @@ const NavLinks = styled.div`
       right: 2rem;
       width: 120px;
       height: 200px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(253, 246, 237, 0.8);
       border-radius: 16px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       z-index: -1;
@@ -106,7 +107,7 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled.a`
-  color: #666;
+  color: #58527C;
   text-decoration: none;
   padding: 0.5rem 0;
   font-weight: 500;
@@ -122,7 +123,7 @@ const NavLink = styled.a`
     text-align: right;
     
     &:hover {
-      color: #a78bfa;
+      color: #9E89A0;
     }
   }
   
@@ -133,7 +134,7 @@ const NavLink = styled.a`
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #a78bfa, #ddd6fe);
+    background: linear-gradient(90deg, #9E89A0, #b8a7ba);
     transition: width 0.3s ease;
     
     @media (max-width: 768px) {
@@ -142,7 +143,7 @@ const NavLink = styled.a`
   }
   
   &:hover {
-    color: #a78bfa;
+    color: #9E89A0;
     
     &::after {
       width: 100%;
@@ -151,7 +152,7 @@ const NavLink = styled.a`
   
   &.active {
     &:hover {
-      color: #a78bfa;
+      color: #9E89A0;
       
       &::after {
         width: 100%;
@@ -161,7 +162,7 @@ const NavLink = styled.a`
 `;
 
 const BackButton = styled(Link)`
-  color: #666;
+  color: #58527C;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -171,7 +172,7 @@ const BackButton = styled(Link)`
   transition: color 0.3s ease;
   
   &:hover {
-    color: #a78bfa;
+    color: #9E89A0;
   }
 
   svg {
@@ -181,9 +182,9 @@ const BackButton = styled(Link)`
 
 const MenuButton = styled.button`
   display: none;
-  background: none;
+  background: #FDF6ED;
   border: none;
-  color: #666;
+  color: #58527C;
   cursor: pointer;
   z-index: 1001;
   padding: 0.5rem;
@@ -193,7 +194,7 @@ const MenuButton = styled.button`
   }
   
   &:hover {
-    color: #a78bfa;
+    color: #9E89A0;
   }
 `;
 

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const NavContainer = styled.nav`
   position: fixed;
@@ -11,7 +11,7 @@ const NavContainer = styled.nav`
   right: 0;
   z-index: 1000;
   padding: 0.5rem 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(253, 246, 237, 0.95);
   backdrop-filter: blur(8px);
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
@@ -34,7 +34,7 @@ const NavContent = styled.div`
 `;
 
 const Logo = styled(Link)`
-  color: #333;
+  color: #58527c;
   text-decoration: none;
   font-size: 1.3rem;
   font-weight: bold;
@@ -42,28 +42,39 @@ const Logo = styled(Link)`
   padding: 0.2rem 0;
   z-index: 1001;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  
+  flex-shrink: 1;
+  overflow: hidden;
+
   .english {
-    font-family: 'Dancing Script', cursive, bold;
+    font-family: "Dancing Script", cursive, bold;
     font-size: 2.5rem;
-    
+
     @media (max-width: 768px) {
       font-size: 2rem;
     }
+
+    @media (max-width: 480px) {
+      font-size: 1.6rem;
+    }
   }
-  
+
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
 const NavButtons = styled.div`
   display: flex;
   gap: 1rem;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+  }
 `;
 
 const BackButton = styled(Link)`
-  color: #666;
+  color: #58527c;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -71,18 +82,28 @@ const BackButton = styled(Link)`
   font-weight: 500;
   font-size: 1rem;
   transition: color 0.3s ease;
-  
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
   &:hover {
-    color: #a78bfa;
+    color: #9e89a0;
   }
 
   svg {
     font-size: 1.2rem;
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 `;
 
 const NavButton = styled.button`
-  color: #666;
+  color: #58527c;
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-weight: 500;
@@ -95,44 +116,60 @@ const NavButton = styled.button`
   border: none;
   border-radius: 20px;
   transition: all 0.3s ease;
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.7rem;
+  }
 
   &:hover {
-    color: #a78bfa;
-    background: rgba(167, 139, 250, 0.1);
+    color: #9e89a0;
+    background: rgba(158, 137, 160, 0.1);
   }
 
   svg {
     font-size: 1.2rem;
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 `;
 
 const ProjectNavigation = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.pageYOffset > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
+  };
+
+  const handleBackClick = (e) => {
+    e.preventDefault();
+    navigate("/", { state: { scrollToProjects: true } });
   };
 
   return (
     <NavContainer>
       <NavContent>
-        <Logo to="/">
+        <Logo to="/" onClick={handleBackClick}>
           <span className="english">Rachel Wang</span>
         </Logo>
         <NavButtons>
-          <BackButton to="/">
+          <BackButton to="/" onClick={handleBackClick}>
             <ArrowBackIcon />
             首页
           </BackButton>

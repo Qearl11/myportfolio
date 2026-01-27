@@ -7,13 +7,14 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none !important;
   }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #FFFFFF;
+    background-color: #FDF6ED;
     color: #2C3E50;
   }
 
@@ -25,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
   button {
     border: none;
     background: none;
-    cursor: pointer;
+    cursor: none !important;
     font-family: inherit;
   }
 
@@ -35,7 +36,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background-color: #2C3E50;
+    background-color: #9E89A0;
     color: #FFFFFF;
   }
 `;
